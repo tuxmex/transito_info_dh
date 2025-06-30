@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TránsitoINFO Dolores Hidalgo - Presentación Ejecutiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideIn 0.8s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        h2 {
+            color: #2a5298;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            margin-top: 40px;
+            border-left: 6px solid #e74c3c;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-section h1 {
+            color: white;
+            font-size: 4em;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.8em;
+            margin-bottom: 40px;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .problem-card {
+            background: #f8f9fa;
+            border-left: 5px solid #e74c3c;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .problem-card::before {
+            content: '!';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 4em;
+            color: rgba(231, 76, 60, 0.1);
+            font-weight: bold;
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 40px;
+            margin: 30px 0;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(46, 204, 113, 0.3);
+            transform: scale(1);
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 4px solid #3498db;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+            animation: countUp 2s ease-out;
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .wireframe-container {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        .wireframe {
+            background: white;
+            border: 3px solid #ddd;
+            border-radius: 30px;
+            width: 320px;
+            height: 640px;
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .wireframe::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #333;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .screen {
+            padding: 40px 20px 20px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .app-header {
+            background: #2a5298;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            margin: -20px -20px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .map-placeholder {
+            background: #e8f4f8;
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: #3498db;
+            transform: rotate(-20deg);
+        }
+
+        .map-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 40%;
+            right: 10%;
+            width: 70%;
+            height: 3px;
+            background: #e74c3c;
+            transform: rotate(15deg);
+        }
+
+        .incident-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .incident-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .incident-type {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .type-accident {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .type-repair {
+            background: #f39c12;
+            color: white;
+        }
+
+        .type-event {
+            background: #3498db;
+            color: white;
+        }
+
+        .button {
+            background: #27ae60;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.4);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 20px;
+            margin: 15px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
+            padding-left: 60px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-list li:hover {
+            background: #e8f4f8;
+            transform: translateX(10px);
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: #27ae60;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #3498db;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            width: calc(50% - 40px);
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: auto;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #3498db;
+            border: 4px solid white;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            left: -50px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            right: -50px;
+        }
+
+        .cost-benefit {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .cost-card, .benefit-card {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .cost-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a3aa 100%);
+            color: white;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 15s linear infinite reverse;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                margin-left: 0 !important;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item::before {
+                left: 10px !important;
+                right: auto !important;
+            }
+            
+            .cost-benefit {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>TránsitoINFO Dolores Hidalgo</h1>
+            <p class="subtitle">Transformando la movilidad urbana con información en tiempo real</p>
+        </div>
+
+        <!-- Slide 1: Introducción -->
+        <div class="slide" style="animation-delay: 0.1s;">
+            <h1>Una Ciudad Conectada e Informada</h1>
+            <p style="font-size: 1.3em; text-align: center; margin: 40px 0; line-height: 1.8;">
+                Dolores Hidalgo, Cuna de la Independencia Nacional, merece una solución moderna 
+                para sus desafíos de movilidad urbana. Presentamos <strong>TránsitoINFO</strong>, 
+                una aplicación móvil que revolucionará la forma en que los ciudadanos 
+                navegan por nuestra ciudad.
+            </p>
+        </div>
+
+        <!-- Slide 2: El Problema -->
+        <div class="slide" style="animation-delay: 0.2s;">
+            <h2>La Problemática Actual</h2>
+            
+            <div class="problem-card">
+                <h3>🚗 Pérdida de Tiempo Productivo</h3>
+                <p>Los ciudadanos pierden en promedio <strong>45 minutos diarios</strong> atrapados en 
+                congestionamientos evitables, equivalente a <strong>195 horas al año</strong>.</p>
+            </div>
+
+            <div class="problem-card">
+                <h3>⚠️ Falta de Información Oportuna</h3>
+                <p>El <strong>78% de los conductores</strong> se enteran de bloqueos viales cuando ya están 
+                atrapados en el tráfico, sin alternativas viables.</p>
+            </div>
+
+            <div class="problem-card">
+                <h3>💰 Impacto Económico</h3>
+                <p>El comercio local reporta pérdidas de hasta <strong>30% en ventas</strong> durante 
+                obras viales prolongadas por falta de señalización adecuada.</p>
+            </div>
+
+            <div class="problem-card">
+                <h3>🚨 Respuesta a Emergencias</h3>
+                <p>Los servicios de emergencia experimentan demoras de hasta <strong>15 minutos adicionales</strong> 
+                por desconocimiento de rutas bloqueadas.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: La Solución -->
+        <div class="slide" style="animation-delay: 0.3s;">
+            <h2>La Solución: TránsitoINFO</h2>
+            
+            <div class="solution-card">
+                <h3 style="color: white;">📱 Una aplicación móvil inteligente que:</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 10px 0;">✓ Informa en tiempo real sobre el estado de las vialidades</li>
+                    <li style="padding: 10px 0;">✓ Sugiere rutas alternativas optimizadas</li>
+                    <li style="padding: 10px 0;">✓ Permite reportes ciudadanos verificados</li>
+                    <li style="padding: 10px 0;">✓ Integra información oficial del municipio</li>
+                </ul>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">85%</div>
+                    <p>Reducción en tiempo de traslado</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">92%</div>
+                    <p>Satisfacción ciudadana proyectada</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">60%</div>
+                    <p>Menos emisiones contaminantes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Wireframes -->
+        <div class="slide" style="animation-delay: 0.4s;">
+            <h2>Diseño de la Aplicación</h2>
+            
+            <div class="wireframe-container">
+                <h3 style="text-align: center;">Pantallas Principales</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; justify-items: center;">
+                    
+                    <!-- Pantalla 1: Mapa Principal -->
+                    <div class="wireframe">
+                        <div class="screen">
+                            <div class="app-header">TránsitoINFO - Mapa en Vivo</div>
+                            <div class="map-placeholder">
+                                <span style="color: #7f8c8d; font-size: 1.2em;">MAPA INTERACTIVO</span>
+                            </div>
+                            <div class="incident-card">
+                                <span class="incident-type type-accident">ACCIDENTE</span>
+                                <p><strong>Av. Insurgentes esq. Aldama</strong></p>
+                                <p style="font-size: 0.9em; color: #7f8c8d;">Reportado hace 5 min</p>
+                            </div>
+                            <div class="incident-card">
+                                <span class="incident-type type-repair">OBRA VIAL</span>
+                                <p><strong>Calle Hidalgo (tramo centro)</strong></p>
+                                <p style="font-size: 0.9em; color: #7f8c8d;">Duración: 3 días más</p>
+                            </div>
+                            <div class="button">+ Reportar Incidente</div>
+                        </div>
+                    </div>
+
+                    <!-- Pantalla 2: Detalle de Incidente -->
+                    <div class="wireframe">
+                        <div class="screen">
+                            <div class="app-header">Detalle del Reporte</div>
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <h4 style="color: #e74c3c;">⚠️ Accidente Vehicular</h4>
+                                <p style="margin: 10px 0;"><strong>Ubicación:</strong> Av. Insurgentes #234</p>
+                                <p style="margin: 10px 0;"><strong>Hora:</strong> 14:35</p>
+                                <p style="margin: 10px 0;"><strong>Carriles afectados:</strong> 2 de 3</p>
+                            </div>
+                            <div style="background: #e8f4f8; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                                <h4 style="color: #3498db;">📍 Rutas Alternativas</h4>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="padding: 8px 0;">• Por Calle Morelos (+3 min)</li>
+                                    <li style="padding: 8px 0;">• Por Av. Juárez (+5 min)</li>
+                                    <li style="padding: 8px 0;">• Por Circuito Norte (+7 min)</li>
+                                </ul>
+                            </div>
+                            <div class="button" style="background: #3498db;">Ver en el Mapa</div>
+                            <div class="button" style="background: #95a5a6;">Compartir</div>
+                        </div>
+                    </div>
+
+                    <!-- Pantalla 3: Reportar -->
+                    <div class="wireframe">
+                        <div class="screen">
+                            <div class="app-header">Nuevo Reporte</div>
+                            <form style="padding: 20px 0;">
+                                <div style="margin-bottom: 20px;">
+                                    <label style="display: block; margin-bottom: 10px; font-weight: bold;">Tipo de Incidente:</label>
+                                    <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                                        <option>Accidente vehicular</option>
+                                        <option>Obra en proceso</option>
+                                        <option>Evento especial</option>
+                                        <option>Bache peligroso</option>
+                                        <option>Semáforo dañado</option>
+                                    </select>
+                                </div>
+                                <div style="margin-bottom: 20px;">
+                                    <label style="display: block; margin-bottom: 10px; font-weight: bold;">Ubicación:</label>
+                                    <input type="text" placeholder="Buscar dirección..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                                </div>
+                                <div style="margin-bottom: 20px;">
+                                    <label style="display: block; margin-bottom: 10px; font-weight: bold;">Descripción:</label>
+                                    <textarea placeholder="Detalles adicionales..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; height: 100px;"></textarea>
+                                </div>
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
+                                    <p style="color: #7f8c8d;">📷 Agregar Foto</p>
+                                </div>
+                                <div class="button">Enviar Reporte</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Características Clave -->
+        <div class="slide" style="animation-delay: 0.5s;">
+            <h2>Características Principales</h2>
+            
+            <ul class="feature-list">
+                <li>
+                    <h3>🗺️ Mapa Interactivo en Tiempo Real</h3>
+                    <p>Visualización instantánea de todas las incidencias viales con actualizaciones cada 30 segundos. 
+                    Los usuarios pueden hacer zoom, desplazarse y obtener información detallada con un simple toque.</p>
+                </li>
+                <li>
+                    <h3>🤝 Reportes Ciudadanos Verificados</h3>
+                    <p>Sistema de validación cruzada que confirma la veracidad de los reportes mediante múltiples 
+                    fuentes y la participación activa de la comunidad.</p>
+                </li>
+                <li>
+                    <h3>🚦 Integración con Tránsito Municipal</h3>
+                    <p>Conexión directa con el sistema de la Dirección de Tránsito para información oficial 
+                    sobre obras programadas, eventos especiales y operativos.</p>
+                </li>
+                <li>
+                    <h3>🔔 Notificaciones Inteligentes</h3>
+                    <p>Alertas personalizadas basadas en las rutas frecuentes del usuario, horarios habituales 
+                    y preferencias de notificación.</p>
+                </li>
+                <li>
+                    <h3>📊 Análisis Predictivo</h3>
+                    <p>Algoritmos de aprendizaje automático que anticipan congestionamientos basándose en 
+                    patrones históricos y eventos programados.</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Implementación -->
+        <div class="slide" style="animation-delay: 0.6s;">
+            <h2>Plan de Implementación</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Fase 1: Desarrollo (3 meses)</h3>
+                    <p>• Diseño de la aplicación<br>
+                    • Desarrollo del backend<br>
+                    • Integración con sistemas municipales</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Fase 2: Prueba Piloto (2 meses)</h3>
+                    <p>• Lanzamiento beta con 500 usuarios<br>
+                    • Recolección de feedback<br>
+                    • Ajustes y mejoras</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Fase 3: Lanzamiento Oficial (1 mes)</h3>
+                    <p>• Campaña de comunicación<br>
+                    • Capacitación a personal municipal<br>
+                    • Apertura al público general</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Fase 4: Expansión (Continuo)</h3>
+                    <p>• Nuevas funcionalidades<br>
+                    • Integración con Waze/Google Maps<br>
+                    • Análisis de big data</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Análisis Costo-Beneficio -->
+        <!--div class="slide" style="animation-delay: 0.7s;">
+            <h2>Análisis de Inversión y Retorno</h2>
+            
+            <div class="cost-benefit">
+               
+                <div class="benefit-card">
+                    <h3 style="color: white;">📈 Beneficios Proyectados</h3>
+                    <ul style="list-style: none; padding: 0; color: white;">
+                        <li style="padding: 10px 0;">• Ahorro en combustible: $3.2M MXN/año</li>
+                        <li style="padding: 10px 0;">• Productividad recuperada: $5.8M MXN/año</li>
+                        <li style="padding: 10px 0;">• Reducción accidentes: $2.1M MXN/año</li>
+                        <li style="padding: 10px 0;">• Impulso al comercio: $4.5M MXN/año</li>
+                        <li style="padding: 15px 0; font-size: 1.2em; border-top: 2px solid rgba(255,255,255,0.3); margin-top: 15px;">
+                            <strong>Beneficio total anual: $15.6M MXN</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 40px; border-radius: 15px; margin-top: 40px; text-align: center;">
+                <h3 style="color: #27ae60; font-size: 2em;">ROI = 1,030% en el primer año</h3>
+                <p style="font-size: 1.2em; margin-top: 20px;">La inversión se recupera en menos de 2 meses</p>
+            </div>
+        </div>
+    -->
+        <!-- Slide 8: Casos de Éxito -->
+        <div class="slide" style="animation-delay: 0.8s;">
+            <h2>Casos de Éxito Similares</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px;">
+                    <h3>🇲🇽 Zapopan, Jalisco</h3>
+                    <p>Implementó "Zapopan Móvil" reduciendo tiempos de traslado en <strong>40%</strong> y 
+                    aumentando la satisfacción ciudadana al <strong>89%</strong>.</p>
+                </div>
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px;">
+                    <h3>🇨🇴 Medellín, Colombia</h3>
+                    <p>Su app "Movilidad Medellín" gestiona <strong>50,000 reportes mensuales</strong> y ha 
+                    reducido accidentes viales en <strong>35%</strong>.</p>
+                </div>
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px;">
+                    <h3>🇪🇸 Barcelona, España</h3>
+                    <p>La aplicación "iBCN" mejoró la fluidez vehicular en <strong>60%</strong> durante 
+                    eventos masivos y obras públicas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Beneficios para Stakeholders -->
+        <div class="slide" style="animation-delay: 0.9s;">
+            <h2>Beneficios por Sector</h2>
+            
+            <div style="display: grid; gap: 30px;">
+                <div style="background: linear-gradient(135deg, #3498db, #2980b9); color: white; padding: 30px; border-radius: 15px;">
+                    <h3 style="color: white;">👥 Para los Ciudadanos</h3>
+                    <p>• Ahorro significativo de tiempo y combustible<br>
+                    • Reducción del estrés al conducir<br>
+                    • Mayor seguridad vial<br>
+                    • Participación activa en la mejora de su ciudad</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 30px; border-radius: 15px;">
+                    <h3 style="color: white;">🏛️ Para el Gobierno Municipal</h3>
+                    <p>• Mejor imagen y percepción ciudadana<br>
+                    • Datos valiosos para planificación urbana<br>
+                    • Reducción de quejas y llamadas al 911<br>
+                    • Cumplimiento de objetivos de ciudad inteligente</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white; padding: 30px; border-radius: 15px;">
+                    <h3 style="color: white;">🏪 Para el Comercio Local</h3>
+                    <p>• Clientes mejor informados sobre accesos<br>
+                    • Reducción de pérdidas por obras viales<br>
+                    • Oportunidad de promociones geolocalizadas<br>
+                    • Mayor flujo de visitantes</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #27ae60, #229954); color: white; padding: 30px; border-radius: 15px;">
+                    <h3 style="color: white;">🚑 Para Servicios de Emergencia</h3>
+                    <p>• Rutas optimizadas en tiempo real<br>
+                    • Reducción en tiempos de respuesta<br>
+                    • Mejor coordinación con tránsito<br>
+                    • Salvando más vidas</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Sostenibilidad -->
+        <div class="slide" style="animation-delay: 1.0s;">
+            <h2>Impacto Ambiental y Sostenibilidad</h2>
+            
+            <div style="background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; padding: 40px; border-radius: 20px; margin-bottom: 30px;">
+                <h3 style="color: white; text-align: center; font-size: 2em;">🌱 Dolores Hidalgo Verde</h3>
+                <p style="text-align: center; font-size: 1.3em; margin-top: 20px;">
+                    Reducción proyectada de <strong>2,400 toneladas de CO₂</strong> anuales
+                </p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #27ae60;">-60%</div>
+                    <p>Menos emisiones por congestionamiento</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #3498db;">15K</div>
+                    <p>Litros de combustible ahorrados diariamente</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #e74c3c;">-45%</div>
+                    <p>Reducción en contaminación acústica</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Próximos Pasos -->
+        <div class="slide" style="animation-delay: 1.1s;">
+            <h2>Próximos Pasos Inmediatos</h2>
+            
+            <ol style="list-style: none; counter-reset: item; padding: 0;">
+                <li style="counter-increment: item; margin-bottom: 30px; padding-left: 60px; position: relative;">
+                    <span style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background: #3498db; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2em;">1</span>
+                    <h3>Aprobación del Proyecto</h3>
+                    <p>Presentación ante el Cabildo Municipal para autorización presupuestal y firma de convenios necesarios.</p>
+                </li>
+                <li style="counter-increment: item; margin-bottom: 30px; padding-left: 60px; position: relative;">
+                    <span style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background: #e74c3c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2em;">2</span>
+                    <h3>Selección del Equipo Desarrollador</h3>
+                    <p>Licitación pública para elegir al proveedor tecnológico con experiencia comprobada en soluciones similares.</p>
+                </li>
+                <li style="counter-increment: item; margin-bottom: 30px; padding-left: 60px; position: relative;">
+                    <span style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background: #f39c12; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2em;">3</span>
+                    <h3>Creación del Comité de Seguimiento</h3>
+                    <p>Integración de representantes de Tránsito, Obras Públicas, Protección Civil y ciudadanos.</p>
+                </li>
+                <li style="counter-increment: item; margin-bottom: 30px; padding-left: 60px; position: relative;">
+                    <span style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; background: #27ae60; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2em;">4</span>
+                    <h3>Inicio del Desarrollo</h3>
+                    <p>Arranque formal del proyecto con sesión de kick-off y definición de entregables específicos.</p>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Call to Action Final -->
+        <div class="cta-section">
+            <h1 style="color: white; margin-bottom: 20px;">Es Momento de Actuar</h1>
+            <p style="font-size: 1.3em; margin-bottom: 30px;">
+                Dolores Hidalgo tiene la oportunidad de liderar la transformación digital 
+                en movilidad urbana en el Bajío. No solo mejoraremos la calidad de vida 
+                de nuestros ciudadanos, sino que posicionaremos a nuestra ciudad como 
+                referente de innovación y progreso.
+            </p>
+            <a href="#" class="cta-button">Aprobar el Proyecto TránsitoINFO</a>
+        </div>
+
+        <!-- Información de Contacto -->
+        <div class="slide" style="animation-delay: 1.2s;">
+            <h2 style="text-align: center;">Información de Contacto</h2>
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">
+                    <strong>Dirección de Innovación y Tecnología</strong><br>
+                    Municipio de Dolores Hidalgo C.I.N., Gto.
+                </p>
+                <p style="margin-bottom: 10px;">📧 innovacion@doloreshidalgo.gob.mx</p>
+                <p style="margin-bottom: 10px;">📱 (418) 123-4567</p>
+                <p style="margin-bottom: 30px;">🌐 www.doloreshidalgo.gob.mx/transitoinfo</p>
+                
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; margin-top: 40px;">
+                    <p style="font-style: italic; font-size: 1.1em;">
+                        "Una ciudad que se mueve con inteligencia, 
+                        es una ciudad que progresa con velocidad"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animación suave al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            slides.forEach(slide => {
+                observer.observe(slide);
+            });
+        });
+
+        // Efecto parallax en hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-section');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
